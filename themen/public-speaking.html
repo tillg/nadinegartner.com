@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Public Speaking — Nadine Gartner</title>
+  <meta name="description" content="Wie Nadine Gartner Public Speaking unterrichtet und worauf es dabei ankommt.">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav" aria-label="Hauptnavigation">
+      <a class="brand" href="../index.html">Nadine <span>Gartner</span></a>
+      <div class="nav-links">
+        <a href="../index.html">Start</a>
+        <a href="../ueber-mich.html">Wer bin ich</a>
+        <a href="../angebot.html">Angebot</a>
+        <a href="../artikel.html">Artikel</a>
+        <a href="https://starkesdach.de/" target="_blank" rel="noopener">Starkes Dach ↗</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap prose">
+        <p class="eyebrow">Vertiefung</p>
+        <h1>Public Speaking</h1>
+        <p class="lead ph">[Platzhalter: Worum geht es? Warum ist freies Reden für alle lernbar?]</p>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="wrap prose">
+        <h2>Wie ich unterrichte</h2>
+        <p class="ph">[Platzhalter: Methodik, Haltung, typischer Ablauf.]</p>
+
+        <h2>Worauf es ankommt</h2>
+        <p class="ph">[Platzhalter: Kernprinzipien — z. B. Authentizität, Körper, Stimme, Struktur.]</p>
+
+        <div class="figure ph" style="margin:24px 0;">[Bild · assets/public-speaking.jpg]</div>
+
+        <div class="cta-row">
+          <a class="btn" href="../angebot.html">Trainings ansehen</a>
+          <a class="btn ghost" href="../ueber-mich.html">Zurück zu meinem Weg</a>
+        </div>
+
+        <div class="related-articles" id="related" hidden>
+          <h2>Artikel zu diesem Thema</h2>
+          <div class="article-list" id="relatedList"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div>© <span class="jahr">2026</span> Nadine Gartner</div>
+      <div>
+        <a href="../impressum.html">Impressum</a> ·
+        <a href="#" class="ph">[Datenschutz]</a> ·
+        <a href="https://starkesdach.de/" target="_blank" rel="noopener">Starkes Dach</a>
+      </div>
+    </div>
+  </footer>
+  <script src="../js/articles.js"></script>
+  <script>
+    document.querySelectorAll('.jahr').forEach(e => e.textContent = new Date().getFullYear());
+    (async () => {
+      const arts = await fetchArticles('Public Speaking');
+      if (!arts.length) return;
+      document.getElementById('related').hidden = false;
+      document.getElementById('relatedList').innerHTML = arts.map(articleCardHTML).join('');
+    })();
+  </script>
+</body>
+</html>

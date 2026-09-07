@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Artikel — Nadine Gartner</title>
+{BLOCK}
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="assets/favicon.ico" sizes="32x32">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav" aria-label="Hauptnavigation">
+      <a class="brand" href="index.html">Nadine <span>Gartner</span></a>
+      <div class="nav-links">
+        <a href="index.html">Start</a>
+        <a href="ueber-mich.html">Wer bin ich</a>
+        <a href="angebot.html">Angebot</a>
+        <a href="artikel.html">Artikel</a>
+        <a href="https://starkesdach.de/" target="_blank" rel="noopener">Starkes Dach ↗</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <article class="hero">
+      <div class="wrap prose" id="artikel">
+        <p class="muted">Lade Artikel …</p>
+      </div>
+    </article>
+
+    <div class="wrap prose" style="padding-bottom:40px;">
+      <a class="jump" href="artikel.html">Alle Artikel</a>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div>© <span class="jahr">2026</span> Nadine Gartner</div>
+      <div>
+        <a href="impressum.html">Impressum</a> ·
+        <a href="#" class="ph">[Datenschutz]</a> ·
+        <a href="https://starkesdach.de/" target="_blank" rel="noopener">Starkes Dach</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/articles.js"></script>
+  <script>
+    document.querySelectorAll('.jahr').forEach(e => e.textContent = new Date().getFullYear());
+    (async () => {
+      const box = document.getElementById('artikel');
+      const slug = new URLSearchParams(location.search).get('slug') || '';
+      const a = slug ? await fetchArticle(slug) : null;
+      if (!a) {
+        box.innerHTML = '<h1>Artikel nicht gefunden</h1><p class="muted">Dieser Artikel existiert nicht (mehr).</p>';
+        return;
+      }
+      document.title = `${a.title} — Nadine Gartner`;
+      const topic = a.topic ? `<span class="tag">${escapeHtml(a.topic)}</span>` : '';
+      const date = a.date ? `<span class="article-date">${escapeHtml(formatDate(a.date))}</span>` : '';
+      box.innerHTML = `
+        <p class="eyebrow">Artikel</p>
+        <h1>${escapeHtml(a.title)}</h1>
+        <div class="article-meta" style="margin-bottom:8px;">${topic}${date}</div>
+        <div class="article-body">${a.content || ''}</div>`;
+    })();
+  </script>
+</body>
+</html>
